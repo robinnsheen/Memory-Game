@@ -1,5 +1,7 @@
 "use strict";
 
+let numFlipped = 0;
+
 /** Memory game: find matching pairs of cards and flip both of them. */
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
@@ -46,7 +48,6 @@ function createCards(colors) {
     newCard.classList.add(color);
     newCard.addEventListener("click", handleCardClick);
     gameBoard.appendChild(newCard);
-
   }
 }
 
@@ -54,19 +55,32 @@ function createCards(colors) {
 
 function flipCard(card) {
   console.log(card.target.getAttribute('class') +  "flipup");
+  card.target.style.backgroundColor = card.target.getAttribute("class");
 }
 
 /** Flip a card face-down. */
 
 function unFlipCard(card) {
   console.log(card.target.getAttribute('class') + "flipdown")
+  setTimeout(unFlip, 600);
+
+  function unFlip() {
+  card.target.style.removeProperty = ("backgroundColor");
+  };
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 
-function handleCardClick(evt) {
-  console.log(evt.target.getAttribute('class'));
-  flipCard(evt);
-  unFlipCard(evt);
-
+function handleCardClick(card) {
+  let colorsFlipped = [];
+  if (numFlipped < 2) {
+    console.log(card.target.getAttribute('class'));
+    flipCard(card);
+    colorsFlipped.push(card.target.getAttribute("class"));
+    numFlipped += 1;
+  }
+  if (numFlipped == 2 && colorsFlipped.some(x => x != colorsFlipped[0])) {
+    unFlipCard(card);
+    numFlipped = 0;
+  }
 }
