@@ -1,7 +1,5 @@
 "use strict";
 
-let numFlipped = 0;
-
 /** Memory game: find matching pairs of cards and flip both of them. */
 
 const FOUND_MATCH_WAIT_MSECS = 1000;
@@ -38,49 +36,61 @@ function shuffle(items) {
  * Each div DOM element will have:
  * - a class with the value of the color
  * - an click listener for each card to handleCardClick
+ * - a front face (side facing player)
+ * - a back face (side face down with color)
  */
 
 function createCards(colors) {
   const gameBoard = document.getElementById("game");
 
   for (let color of colors) {
-    const newCard = document.createElement("div")
-    newCard.classList.add(color);
+    const newCard = createElementWithClasses("div", "inner", color);
+    const frontFace = createFace("front");
+    const backFace = createFace("back", color);
+
+
+    newCard.appendChild(frontFace);
+    newCard.appendChild(backFace);
     newCard.addEventListener("click", handleCardClick);
     gameBoard.appendChild(newCard);
   }
+
+  /**Create face of card */
+
+  function createFace (side, color) {
+    const face = "card_face--" + side;
+    const cardFace = createElementWithClasses("div", "card_face", face);
+    cardFace.style.backgroundColor = color;
+    cardFace.innerText = "CARD";
+    return cardFace;
+  }
+
+
+}
+/** Create document.element with class or classes. must pass classes as strings */
+function createElementWithClasses (element) {
+  const newElem = document.createElement(element);
+  for (let i=1; i<arguments.length; i++) {
+    newElem.classList.add(arguments[i]);
+  };
+  return newElem;
 }
 
 /** Flip a card face-up. */
 
 function flipCard(card) {
-  console.log(card.target.getAttribute('class') +  "flipup");
-  card.target.style.backgroundColor = card.target.getAttribute("class");
+  card.currentTarget.classList.toggle("is-flipped");
 }
 
 /** Flip a card face-down. */
 
 function unFlipCard(card) {
-  console.log(card.target.getAttribute('class') + "flipdown")
-  setTimeout(unFlip, 600);
 
-  function unFlip() {
-  card.target.style.removeProperty = ("backgroundColor");
-  };
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 
 function handleCardClick(card) {
-  let colorsFlipped = [];
-  if (numFlipped < 2) {
-    console.log(card.target.getAttribute('class'));
-    flipCard(card);
-    colorsFlipped.push(card.target.getAttribute("class"));
-    numFlipped += 1;
-  }
-  if (numFlipped == 2 && colorsFlipped.some(x => x != colorsFlipped[0])) {
-    unFlipCard(card);
-    numFlipped = 0;
-  }
+  flipCard(card);
+
 }

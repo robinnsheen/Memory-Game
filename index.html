@@ -3,13 +3,30 @@
 <head>
   <meta charset="UTF-8"/>
   <title>Memory Game!</title>
+
+  <!--Main stylesheet-->
   <link rel="stylesheet" href="memory-game.css"/>
+
+  <!--Google Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
 <h1>Memory Game!</h1>
 
-<div id="game"></div>
+<!--Game Board-->
+
+<div id="game">
+
+  <div class="inner">
+    <div class="card_face card_face--front">Card</div>
+    <div class="card_face card_face--back"></div>
+  </div>
+
+</div>
 
 <script src="memory-game.js"></script>
 
