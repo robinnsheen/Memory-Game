@@ -72,25 +72,54 @@ function createElementWithClasses (element) {
   const newElem = document.createElement(element);
   for (let i=1; i<arguments.length; i++) {
     newElem.classList.add(arguments[i]);
-  };
+  }
   return newElem;
 }
 
 /** Flip a card face-up. */
 
 function flipCard(card) {
-  card.currentTarget.classList.toggle("is-flipped");
+  if (card.classList != "is-flipped") {
+    card.classList.toggle("is-flipped");
+  }
+
 }
 
-/** Flip a card face-down. */
+/** Flip a card face-down */
 
 function unFlipCard(card) {
-
+  card.classList.toggle("is-flipped");
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 
+let cardsFlipped = [];
+let gameElements = document.getElementById("game");
+
+
 function handleCardClick(card) {
-  flipCard(card);
+
+
+
+  if (cardsFlipped.length < 2) {
+    flipCard(card.currentTarget);
+    cardsFlipped.push(card.currentTarget);
+    console.log(cardsFlipped);
+  }
+
+
+  if (cardsFlipped.length === 2) {
+    let firstFlip = cardsFlipped.pop();
+    let secondFlip = cardsFlipped.pop();
+
+    if (firstFlip.className != secondFlip.className) {
+      setTimeout(()=> {
+        unFlipCard(firstFlip);
+        unFlipCard(secondFlip);
+      }, 3000);
+    }
+  }
+
+
 
 }
