@@ -2,15 +2,17 @@
 
 /** Memory game: find matching pairs of cards and flip both of them. */
 
-const FOUND_MATCH_WAIT_MSECS = 1000;
-const COLORS = [
+if (true) {
+  const FOUND_MATCH_WAIT_MSECS = 1000;
+  const COLORS = [
   "red", "blue", "green", "orange", "purple",
   "red", "blue", "green", "orange", "purple",
-];
+  ];
 
-const colors = shuffle(COLORS);
+  const colors = shuffle(COLORS);
 
-createCards(colors);
+  createCards(colors);
+}
 
 
 /** Shuffle array items in-place and return shuffled array. */
@@ -29,6 +31,14 @@ function shuffle(items) {
   }
 
   return items;
+}
+
+/**Start button */
+
+
+function startGame() {
+  startButton.destroy();
+  playing = true;
 }
 
 
@@ -85,6 +95,7 @@ function createElementWithClasses (element) {
 /** Flip a card face-up.*/
 
 function flipCard(card) {
+  numFlipped++;
   clicks++;
   card.classList.toggle("is-flipped");
   cardsFlipped.push(card)
@@ -97,16 +108,10 @@ function flipCard(card) {
 function unFlipCard(card) {
   card.classList.toggle("is-flipped");
   card.style.pointerEvents = "auto";
-  clicks--;
+  numFlipped--;
 }
 
-/** Handle clicking on a card: this could be first-card or second-card.*/
-
-const cardsFlipped = [];
-let clicks = 0;
-
-function handleCardClick(card) {
-  /**
+/** Handle clicking on a card: this could be first-card or second-card.
  * Push card into cardFlipped, make card unclickable, increase clicks by 1
  *
  * When 2 cards are flipped, empty cardsFlipped array
@@ -121,11 +126,16 @@ function handleCardClick(card) {
  * Reset clicks to 0
 */
 
-  if (clicks < 2) {
+const cardsFlipped = [];
+let numFlipped = 0;
+let clicks = 0;
+
+function handleCardClick(card) {
+  if (numFlipped < 2) {
     flipCard(card.currentTarget);
   }
 
-  if (clicks === 2) {
+  if (numFlipped === 2) {
     let firstFlip = cardsFlipped.pop();
     let secondFlip = cardsFlipped.pop();
 
@@ -134,7 +144,7 @@ function handleCardClick(card) {
         unFlipCard(firstFlip);
         unFlipCard(secondFlip);
       }
-      clicks = 0;
+      numFlipped = 0;
     }, 1000);
 
   }
