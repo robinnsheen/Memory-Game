@@ -59,7 +59,7 @@ function createCards(colors) {
     gameBoard.appendChild(newCard);
   }
 
-  /**Create face of card */
+  /**Function to create front or back face of card */
 
   function createFace (side, color) {
     const face = "card_face--" + side;
@@ -73,6 +73,7 @@ function createCards(colors) {
 
 
 /** Create document.element with class or classes. must pass classes as strings */
+
 function createElementWithClasses (element) {
   const newElem = document.createElement(element);
   for (let i=1; i<arguments.length; i++) {
@@ -81,9 +82,7 @@ function createElementWithClasses (element) {
   return newElem;
 }
 
-/** Flip a card face-up.
- *
-*/
+/** Flip a card face-up.*/
 
 function flipCard(card) {
   clicks++;
@@ -101,8 +100,13 @@ function unFlipCard(card) {
   clicks--;
 }
 
-/** Handle clicking on a card: this could be first-card or second-card.
- *
+/** Handle clicking on a card: this could be first-card or second-card.*/
+
+const cardsFlipped = [];
+let clicks = 0;
+
+function handleCardClick(card) {
+  /**
  * Push card into cardFlipped, make card unclickable, increase clicks by 1
  *
  * When 2 cards are flipped, empty cardsFlipped array
@@ -116,11 +120,6 @@ function unFlipCard(card) {
  *
  * Reset clicks to 0
 */
-
-const cardsFlipped = [];
-let clicks = 0;
-
-function handleCardClick(card) {
 
   if (clicks < 2) {
     flipCard(card.currentTarget);
