@@ -7,9 +7,6 @@
   <!--Main stylesheet-->
   <link rel="stylesheet" href="memory-game.css"/>
 
-  <!--Bootstrap stylesheet-->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
   <!--Google Fonts-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,22 +15,28 @@
 </head>
 <body>
 
-<h1>Memory Game!</h1>
-
-<!--Game Board-->
-<button type="button" class="btn btn-secondary btn-lg">Start!</button>
-
-<div id="game">
-<!--
-  <div class="inner">
-    <div class="card_face card_face--front">Card</div>
-    <div class="card_face card_face--back"></div>
+  <h1><strong>Memory Game!</strong></h1>
+  <div class="btn-group">
+    <button type="button" class="btn" style="background-color: #dd85b8;">Start</button>
+    <button type="button" class="btn" style="background-color: #8772c0;">Reset</button>
   </div>
--->
-</div>
 
 
-<script src="memory-game.js"></script>
+
+  <!--Game Board-->
+
+  <div id="game">
+
+  <!--
+    <div class="inner">
+      <div class="card_face card_face--front">Card</div>
+      <div class="card_face card_face--back"></div>
+    </div>
+  -->
+  </div>
+
+
+  <script src="memory-game.js"></script>
 
 </body>
 </html>
