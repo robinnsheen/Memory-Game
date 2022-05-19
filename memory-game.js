@@ -2,7 +2,9 @@
 
 /** Memory game: find matching pairs of cards and flip both of them. */
 
-if (true) {
+function startGame() {
+  startButton.remove();
+
   const FOUND_MATCH_WAIT_MSECS = 1000;
   const COLORS = [
   "red", "blue", "green", "orange", "purple",
@@ -33,14 +35,28 @@ function shuffle(items) {
   return items;
 }
 
-/**Start button */
+/**Start Page */
+const startButton = document.querySelector(".start-btn");
+startButton.addEventListener("click", () => {
+  startGame();
+  createReset();
+});
 
+/**Reset Page */
+function createReset() {
+  const btnGroup = document.querySelector(".btn-group");
+  const resetButton = createElementWithClasses("button", "btn", "reset-btn");
+  resetButton.innerText = "Reset";
 
-function startGame() {
-  startButton.destroy();
-  playing = true;
+  btnGroup.appendChild(resetButton);
+
+  function finishedReset() {
+    resetButton.addEventListener("click", () => {
+      destroyCards();
+      startGame();
+    })
+  }
 }
-
 
 
 
@@ -148,6 +164,10 @@ function handleCardClick(card) {
     }, 1000);
 
   }
+
+  //last match needs to activate reset button//
+
+
 
 
 

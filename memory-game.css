@@ -1,7 +1,6 @@
 /* you can add to or change this. */
 
 
-
 body {
   margin: auto;
   justify-content: center;
@@ -29,8 +28,20 @@ body {
   display: inline-block;
   font-size: 16px;
   margin: 0rem 1rem 5rem 1rem;
-  border-radius: 5px;
+  border-radius: 8px;
+  cursor: pointer;
 }
+
+.reset-btn.is-done {background-color: #8772c0;}
+.reset-btn.is-done:hover {background-color: #6f53bb;}
+
+.reset-btn {background-color: #c7c3d3;}
+.reset-btn:hover {background-color: #b2abc2;}
+
+.start-btn {background-color: #dd85b8;}
+.start-btn:hover {background-color: #db66aa;}
+
+
 
 h1 {
   position: relative;
