@@ -31,6 +31,9 @@ function shuffle(items) {
   return items;
 }
 
+
+
+
 /** Create card for every color in colors (each will appear twice)
  *
  * Each div DOM element will have:
@@ -52,6 +55,7 @@ function createCards(colors) {
     newCard.appendChild(frontFace);
     newCard.appendChild(backFace);
     newCard.addEventListener("click", handleCardClick);
+
     gameBoard.appendChild(newCard);
   }
 
@@ -64,9 +68,10 @@ function createCards(colors) {
     cardFace.innerText = "CARD";
     return cardFace;
   }
-
-
 }
+
+
+
 /** Create document.element with class or classes. must pass classes as strings */
 function createElementWithClasses (element) {
   const newElem = document.createElement(element);
@@ -81,6 +86,8 @@ function createElementWithClasses (element) {
 function flipCard(card) {
   if (card.classList != "is-flipped") {
     card.classList.toggle("is-flipped");
+    cardsFlipped.push(card)
+    card.style.pointerEvents = "none";
   }
 
 }
@@ -89,24 +96,18 @@ function flipCard(card) {
 
 function unFlipCard(card) {
   card.classList.toggle("is-flipped");
+  card.style.pointerEvents = "auto";
 }
 
 /** Handle clicking on a card: this could be first-card or second-card. */
 
 let cardsFlipped = [];
-let gameElements = document.getElementById("game");
-
 
 function handleCardClick(card) {
-
-
-
   if (cardsFlipped.length < 2) {
     flipCard(card.currentTarget);
-    cardsFlipped.push(card.currentTarget);
     console.log(cardsFlipped);
   }
-
 
   if (cardsFlipped.length === 2) {
     let firstFlip = cardsFlipped.pop();
@@ -117,6 +118,7 @@ function handleCardClick(card) {
         unFlipCard(firstFlip);
         unFlipCard(secondFlip);
       }, 3000);
+
     }
   }
 
