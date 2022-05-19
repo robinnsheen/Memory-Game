@@ -81,14 +81,15 @@ function createElementWithClasses (element) {
   return newElem;
 }
 
-/** Flip a card face-up. */
+/** Flip a card face-up.
+ *
+*/
 
 function flipCard(card) {
-  if (card.classList != "is-flipped") {
-    card.classList.toggle("is-flipped");
-    cardsFlipped.push(card)
-    card.style.pointerEvents = "none";
-  }
+  clicks++;
+  card.classList.toggle("is-flipped");
+  cardsFlipped.push(card)
+  card.style.pointerEvents = "none";
 
 }
 
@@ -97,29 +98,46 @@ function flipCard(card) {
 function unFlipCard(card) {
   card.classList.toggle("is-flipped");
   card.style.pointerEvents = "auto";
+  clicks--;
 }
 
-/** Handle clicking on a card: this could be first-card or second-card. */
+/** Handle clicking on a card: this could be first-card or second-card.
+ *
+ * Push card into cardFlipped, make card unclickable, increase clicks by 1
+ *
+ * When 2 cards are flipped, empty cardsFlipped array
+ * by popping into firstFlip variable and secondFlip variable
+ *
+ * compare firstFlip and secondFlip:
+ * 1. if firstFlip != secondFlip,
+ *    unflip both cards and make cards clickeable again
+ * 2. if firstFlip === secondFlip,
+ *    leave unclickable
+ *
+ * Reset clicks to 0
+*/
 
-let cardsFlipped = [];
+const cardsFlipped = [];
+let clicks = 0;
 
 function handleCardClick(card) {
-  if (cardsFlipped.length < 2) {
+
+  if (clicks < 2) {
     flipCard(card.currentTarget);
-    console.log(cardsFlipped);
   }
 
-  if (cardsFlipped.length === 2) {
+  if (clicks === 2) {
     let firstFlip = cardsFlipped.pop();
     let secondFlip = cardsFlipped.pop();
 
-    if (firstFlip.className != secondFlip.className) {
-      setTimeout(()=> {
+    setTimeout(()=> {
+      if (firstFlip.className !== secondFlip.className) {
         unFlipCard(firstFlip);
         unFlipCard(secondFlip);
-      }, 3000);
+      }
+      clicks = 0;
+    }, 1000);
 
-    }
   }
 
 

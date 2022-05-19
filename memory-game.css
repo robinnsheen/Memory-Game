@@ -60,4 +60,5 @@ h1 {
 .card_face--back {
   transform: rotateY(180deg);
   perspective: 1000px;
+  color: rgba(0, 0, 0, 0);
 }
