@@ -13,6 +13,7 @@ body {
 #game {
   margin: auto;
   width: 100%;
+  height: 100vh;
 }
 
 .btn-group {
@@ -48,12 +49,12 @@ body {
 h1 {
   position: relative;
   color: rgb(68, 68, 68);
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 
 .inner {
-  width: 110px;
-  height: 150px;
+  width: 100px;
+  height: 120px;
   border-radius: 5px;
   margin: 20px;
   justify-content: center;
@@ -87,7 +88,7 @@ h1 {
 }
 
 .card_face--front {
-  background: linear-gradient(#ffc0d5, #c7cdff);
+  background: linear-gradient(#ff9dbe, #abb3ff);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,7 +108,21 @@ h1 {
 
 .popup {
   margin-top: 0.5rem;
-  height: 50px;
+  height: 20px;
   width: 100%;
   color: rgb(119, 119, 119);
+}
+
+.counter {
+  height: 50px;
+  width: 50px;
+  background-color: #e0d7f7;
+  position: relative;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 10px;
+  display: inline-block;
 }

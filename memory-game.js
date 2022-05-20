@@ -4,8 +4,8 @@
 const FOUND_MATCH_WAIT_MSECS = 1000;
 
 const COLORS = [
-  "navajoWhite", "cornflowerBlue", "paleVioletRed", "lightSlateGrey", "lightSalmon",
-  "navajoWhite", "cornflowerBlue", "paleVioletRed", "lightSlateGrey", "lightSalmon",
+  "navajoWhite", "cornflowerBlue", "paleVioletRed", "darkSeaGreen", "lightSalmon",
+  "navajoWhite", "cornflowerBlue", "paleVioletRed", "darkSeaGreen", "lightSalmon",
 ];
 
 const colors = shuffle(COLORS);
@@ -52,6 +52,19 @@ startButton.addEventListener("click", () => {
   createSubmit();
   startButton.remove();
 });
+
+const currScore = document.querySelector("#curr-score");
+const highScore = document.querySelector("#high-score");
+let iColor = 0;
+function randomColor(counter) {
+  counter.style.backgroundColor = (COLORS[iColor]);
+  counter.style.opacity = 0.5;
+  iColor = (iColor + 1) % COLORS.length;
+}
+setInterval(() => {
+  randomColor(currScore);
+  randomColor(highScore);
+}, 1500)
 
 /** Submit Button to submit score + reset game */
 function createSubmit() {
@@ -113,13 +126,13 @@ function createCards(colors) {
     const frontFace = createFace("front");
     const backFace = createFace("back", color);
 
-
     newCard.appendChild(frontFace);
     newCard.appendChild(backFace);
     newCard.addEventListener("click", handleCardClick);
 
     gameBoard.appendChild(newCard);
   }
+
 
   /**Function to create front or back face of card */
 
