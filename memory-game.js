@@ -67,8 +67,6 @@ startButton.addEventListener("click", () => {
 
 /** Scoreboards */
 
-
-
 let iColor = 0;
 function randomColor(counter) {
   counter.style.backgroundColor = (COLORS[iColor]);
@@ -90,6 +88,7 @@ function setHighScore() {
 }
 
 /** Submit Button to submit score + reset game */
+
 function createSubmit() {
   //submit button prior to finishing game//
   submitButton.innerText = "Submit Score";
@@ -117,7 +116,7 @@ function createReset() {
 /** Reset Game function to remove cards and start new game.
  *  Used in Start Over Button and Submit Button
 */
-function resetGame(callback) {
+function resetGame() {
   removeCards();
   startGame();
 
