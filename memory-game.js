@@ -34,17 +34,19 @@ function shuffle(items) {
 
   return items;
 }
+/**    BUTTONS     */
+const btnGroup = document.querySelector(".btn-group");
 
 /**Start Page */
 const startButton = document.querySelector(".start-btn");
 startButton.addEventListener("click", () => {
   startGame();
+  createBack();
   createReset();
 });
 
 /**Reset Page */
 function createReset() {
-  const btnGroup = document.querySelector(".btn-group");
   const resetButton = createElementWithClasses("button", "btn", "reset-btn");
   resetButton.innerText = "Reset";
 
@@ -52,12 +54,32 @@ function createReset() {
 
   function finishedReset() {
     resetButton.addEventListener("click", () => {
-      destroyCards();
+      removeCards();
       startGame();
     })
   }
 }
 
+/**Return to Start */
+function createBack() {
+  const backButton = createElementWithClasses("button", "btn", "start-btn");
+  backButton.innerText = "Back to Start";
+
+  backButton.addEventListener("click", () => {
+    location.reload();
+    return false;
+  });
+  btnGroup.appendChild(backButton);
+
+}
+
+/** Remove Cards */
+function removeCards() {
+  const allCards = document.querySelectorAll(".inner");
+  [...allCards].forEach((card) => {
+    card.remove();
+  })
+}
 
 
 /** Create card for every color in colors (each will appear twice)
