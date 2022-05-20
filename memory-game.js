@@ -55,7 +55,7 @@ const highScore = highScoreBox.querySelector("p")
 
 const startButton = document.querySelector(".start-btn");
 congrats.innerText = "Match all the colors to win the game";
-if (localStorage.highScoreValue != undefined) {
+if (localStorage.highScoreValue) {
   highScore.innerText = localStorage.highScoreValue;
 }
 startButton.addEventListener("click", () => {
