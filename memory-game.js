@@ -4,8 +4,8 @@
 const FOUND_MATCH_WAIT_MSECS = 1000;
 
 const COLORS = [
-  "navajoWhite", "cornflowerBlue",
-  "navajoWhite", "cornflowerBlue",
+  "navajoWhite", "cornflowerBlue", "darkSeaGreen", "lightSalmon", "paleVioletRed",
+  "navajoWhite", "cornflowerBlue", "darkSeaGreen", "lightSalmon", "paleVioletRed"
 ];
 
 const colors = shuffle(COLORS);
