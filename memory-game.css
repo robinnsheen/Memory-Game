@@ -32,11 +32,11 @@ body {
   cursor: pointer;
 }
 
-.reset-btn.is-done {background-color: #8772c0;}
-.reset-btn.is-done:hover {background-color: #6f53bb;}
+.submit-btn.is-done {background-color: #8772c0;}
+.submit-btn.is-done:hover {background-color: #6f53bb;}
 
-.reset-btn {background-color: #c7c3d3;}
-.reset-btn:hover {background-color: #b2abc2;}
+.submit-btn {background-color: #c7c3d3;}
+.submit-btn:hover {background-color: #b2abc2;}
 
 .start-btn {background-color: #dd85b8;}
 .start-btn:hover {background-color: #db66aa;}
@@ -62,6 +62,8 @@ h1 {
   display: inline-block;
 
 }
+
+
 
 h1 {
   text-align: center;
@@ -89,6 +91,10 @@ h1 {
   justify-content: center;
   font-weight: bold;
   color: rgb(255, 255, 255);
+}
+
+.card_face--front:hover {
+  opacity: 0.7;
 }
 
 .card_face--back {

@@ -3,8 +3,6 @@
 /** Memory game: find matching pairs of cards and flip both of them. */
 
 function startGame() {
-  startButton.remove();
-
   const FOUND_MATCH_WAIT_MSECS = 1000;
   const COLORS = [
   "red", "blue", "green", "orange", "purple",
@@ -37,39 +35,40 @@ function shuffle(items) {
 /**    BUTTONS     */
 const btnGroup = document.querySelector(".btn-group");
 
-/**Start Page */
+/**Start Game */
 const startButton = document.querySelector(".start-btn");
 startButton.addEventListener("click", () => {
   startGame();
-  createBack();
   createReset();
+  createSubmit();
+  startButton.remove();
 });
 
-/**Reset Page */
-function createReset() {
-  const resetButton = createElementWithClasses("button", "btn", "reset-btn");
-  resetButton.innerText = "Reset";
+/**Reset/Submit Score after finishing game*/
+function createSubmit() {
+  const submitButton = createElementWithClasses("button", "btn", "submit-btn");
+  submitButton.innerText = "Submit Score";
 
-  btnGroup.appendChild(resetButton);
+  btnGroup.appendChild(submitButton);
 
-  function finishedReset() {
-    resetButton.addEventListener("click", () => {
+  function finishedSubmit() {
+    submitButton.addEventListener("click", () => {
       removeCards();
       startGame();
     })
   }
 }
 
-/**Return to Start */
-function createBack() {
-  const backButton = createElementWithClasses("button", "btn", "start-btn");
-  backButton.innerText = "Back to Start";
+/**Reset before finishing game */
+function createReset() {
+  const resetButton = createElementWithClasses("button", "btn", "start-btn");
+  resetButton.innerText = "Start Over";
 
-  backButton.addEventListener("click", () => {
-    location.reload();
-    return false;
+  resetButton.addEventListener("click", () => {
+    removeCards();
+    startGame();
   });
-  btnGroup.appendChild(backButton);
+  btnGroup.appendChild(resetButton);
 
 }
 
