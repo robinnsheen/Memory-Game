@@ -4,8 +4,8 @@
 const FOUND_MATCH_WAIT_MSECS = 1000;
 
 const COLORS = [
-  "navajoWhite", "cornflowerBlue", "paleVioletRed", "darkSeaGreen", "lightSalmon",
-  "navajoWhite", "cornflowerBlue", "paleVioletRed", "darkSeaGreen", "lightSalmon",
+  "navajoWhite", "cornflowerBlue",
+  "navajoWhite", "cornflowerBlue",
 ];
 
 const colors = shuffle(COLORS);
@@ -14,9 +14,11 @@ const colors = shuffle(COLORS);
 
 function startGame() {
   colorsMatched = 0;
-  congrats.innerText = "";
+  currScore.innerText = 0;
+  congrats.innerText = "Match all the colors to win the game";
   submitButton.classList.remove("is-done");
   createCards(colors);
+  clicks = 0;
 }
 
 
@@ -45,7 +47,10 @@ const resetButton = createElementWithClasses("button", "btn", "start-btn");
 const congrats = document.querySelector(".popup");
 
 /** Scripts for start button on opening site */
+
+
 const startButton = document.querySelector(".start-btn");
+congrats.innerText = "Match all the colors to win the game";
 startButton.addEventListener("click", () => {
   startGame();
   createReset();
@@ -53,18 +58,33 @@ startButton.addEventListener("click", () => {
   startButton.remove();
 });
 
-const currScore = document.querySelector("#curr-score");
-const highScore = document.querySelector("#high-score");
+/** Scoreboards */
+
+localStorage.setItem("highScoreValue", null);
+const currScoreBox = document.querySelector("#curr-score");
+const currScore = currScoreBox.querySelector("p")
+const highScoreBox = document.querySelector("#high-score");
+const highScore = highScoreBox.querySelector("p")
+
 let iColor = 0;
 function randomColor(counter) {
   counter.style.backgroundColor = (COLORS[iColor]);
-  counter.style.opacity = 0.5;
   iColor = (iColor + 1) % COLORS.length;
 }
 setInterval(() => {
-  randomColor(currScore);
-  randomColor(highScore);
+  randomColor(currScoreBox);
+  randomColor(highScoreBox);
 }, 1500)
+
+function setHighScore() {
+  if (localStorage.highScoreValue !== "null") {
+    localStorage.highScoreValue = Math.min(Number(localStorage.highScoreValue), clicks);
+
+  } else {
+    localStorage.highScoreValue = clicks;
+  }
+  highScore.innerText = localStorage.highScoreValue;
+}
 
 /** Submit Button to submit score + reset game */
 function createSubmit() {
@@ -76,17 +96,16 @@ function createSubmit() {
 function finishedSubmit() {
   //submit button after finishing game//
   congrats.innerText = "Congratulations! Click submit to save score and restart";
-  btnGroup.appendChild(congrats);
   submitButton.classList.add("is-done");
   submitButton.addEventListener("click", () => {
-    resetGame();
+    setHighScore();
+    setTimeout(resetGame, 100);
   })
 }
 
 /**Start Over Button */
 function createReset() {
   resetButton.innerText = "Start Over";
-
   resetButton.addEventListener("click", resetGame);
   btnGroup.appendChild(resetButton);
 
@@ -95,8 +114,7 @@ function createReset() {
 /** Reset Game function to remove cards and start new game.
  *  Used in Start Over Button and Submit Button
 */
-function resetGame() {
-
+function resetGame(callback) {
   removeCards();
   startGame();
 
@@ -162,6 +180,7 @@ function createElementWithClasses (element) {
 function flipCard(card) {
   numFlipped++;
   clicks++;
+  currScore.innerText = clicks
   card.classList.toggle("is-flipped");
   cardsFlipped.push(card)
   card.style.pointerEvents = "none";
@@ -218,7 +237,6 @@ function handleCardClick(card) {
 
     if (firstFlip.className === secondFlip.className) {
       colorsMatched++;
-      console.log(colorsMatched);
     }
 
     if (colorsMatched === COLORS.length/2) {
