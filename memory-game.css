@@ -34,12 +34,18 @@ body {
   cursor: pointer;
 }
 
-.submit-btn.is-done {background-color: #8772c0;}
+.submit-btn.is-done {
+  background-color: #8772c0;
+  pointer-events: all;
+  cursor: pointer;
+}
+
 .submit-btn.is-done:hover {background-color: #6f53bb;}
 
 .submit-btn {
   background-color: #c7c3d3;
   cursor: default;
+  pointer-events: none;
 }
 
 .start-btn {background-color: #dd85b8;}
@@ -131,5 +137,9 @@ h1 {
   color: white;
   opacity: 0.8;
 }
+
+#scores {
+  color: #6e6e6e;
+  padding-bottom: 0.5rem;
 
 
