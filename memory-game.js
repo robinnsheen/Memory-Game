@@ -4,12 +4,13 @@
 const FOUND_MATCH_WAIT_MSECS = 1000;
 
 const COLORS = [
-  "red", "blue",
-  "red", "blue",
+  "navajoWhite", "cornflowerBlue", "paleVioletRed", "lightSlateGrey", "lightSalmon",
+  "navajoWhite", "cornflowerBlue", "paleVioletRed", "lightSlateGrey", "lightSalmon",
 ];
 
 const colors = shuffle(COLORS);
 
+/**Set variables, notices, and classlists to default settings then create cards */
 
 function startGame() {
   colorsMatched = 0;
@@ -36,13 +37,14 @@ function shuffle(items) {
 
   return items;
 }
+
 /**    BUTTONS/HEADER TEXT     */
 const btnGroup = document.querySelector(".btn-group");
 const submitButton = createElementWithClasses("button", "btn", "submit-btn");
 const resetButton = createElementWithClasses("button", "btn", "start-btn");
 const congrats = document.querySelector(".popup");
 
-/**Start Game */
+/** Scripts for start button on opening site */
 const startButton = document.querySelector(".start-btn");
 startButton.addEventListener("click", () => {
   startGame();
@@ -51,14 +53,15 @@ startButton.addEventListener("click", () => {
   startButton.remove();
 });
 
-/**Reset/Submit Score after finishing game*/
+/** Submit Button to submit score + reset game */
 function createSubmit() {
+  //submit button prior to finishing game//
   submitButton.innerText = "Submit Score";
   btnGroup.appendChild(submitButton);
 }
 
 function finishedSubmit() {
-
+  //submit button after finishing game//
   congrats.innerText = "Congratulations! Click submit to save score and restart";
   btnGroup.appendChild(congrats);
   submitButton.classList.add("is-done");
@@ -76,7 +79,9 @@ function createReset() {
 
 }
 
-/** Reset Game function to remove cards and start new game */
+/** Reset Game function to remove cards and start new game.
+ *  Used in Start Over Button and Submit Button
+*/
 function resetGame() {
 
   removeCards();
