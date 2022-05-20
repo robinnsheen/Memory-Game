@@ -48,9 +48,16 @@ const congrats = document.querySelector(".popup");
 
 /** Scripts for start button on opening site */
 
+const currScoreBox = document.querySelector("#curr-score");
+const currScore = currScoreBox.querySelector("p")
+const highScoreBox = document.querySelector("#high-score");
+const highScore = highScoreBox.querySelector("p")
 
 const startButton = document.querySelector(".start-btn");
 congrats.innerText = "Match all the colors to win the game";
+if (localStorage.highScoreValue != undefined) {
+  highScore.innerText = localStorage.highScoreValue;
+}
 startButton.addEventListener("click", () => {
   startGame();
   createReset();
@@ -60,11 +67,7 @@ startButton.addEventListener("click", () => {
 
 /** Scoreboards */
 
-localStorage.setItem("highScoreValue", null);
-const currScoreBox = document.querySelector("#curr-score");
-const currScore = currScoreBox.querySelector("p")
-const highScoreBox = document.querySelector("#high-score");
-const highScore = highScoreBox.querySelector("p")
+
 
 let iColor = 0;
 function randomColor(counter) {
@@ -77,11 +80,11 @@ setInterval(() => {
 }, 1500)
 
 function setHighScore() {
-  if (localStorage.highScoreValue !== "null") {
-    localStorage.highScoreValue = Math.min(Number(localStorage.highScoreValue), clicks);
-
-  } else {
+  if (localStorage.highScoreValue == undefined) {
     localStorage.highScoreValue = clicks;
+    console.log("is it nan", clicks);
+  } else {
+    localStorage.highScoreValue = Math.min(Number(localStorage.highScoreValue), clicks);
   }
   highScore.innerText = localStorage.highScoreValue;
 }
