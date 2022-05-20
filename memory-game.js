@@ -13,6 +13,7 @@ const colors = shuffle(COLORS);
 /**Set variables, notices, and classlists to default settings then create cards */
 
 function startGame() {
+  shuffle(COLORS);
   colorsMatched = 0;
   currScore.innerText = 0;
   congrats.innerText = "Match all the colors to win the game";
