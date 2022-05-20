@@ -27,7 +27,7 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 0rem 1rem 5rem 1rem;
+  margin: 0rem 1rem 1rem 1rem;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -103,4 +103,9 @@ h1 {
   transform: rotateY(180deg);
   perspective: 1000px;
   color: rgba(0, 0, 0, 0);
+}
+
+.popup {
+  height: 50px;
+  width: 100%;
 }

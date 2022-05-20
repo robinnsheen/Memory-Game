@@ -4,17 +4,17 @@
 const FOUND_MATCH_WAIT_MSECS = 1000;
 
 const COLORS = [
-  "red", "blue", "green", "orange", "purple",
-  "red", "blue", "green", "orange", "purple",
+  "red", "blue",
+  "red", "blue",
 ];
 
 const colors = shuffle(COLORS);
 
 
 function startGame() {
-
-
-
+  colorsMatched = 0;
+  congrats.innerText = "";
+  submitButton.classList.remove("is-done");
   createCards(colors);
 }
 
@@ -36,8 +36,11 @@ function shuffle(items) {
 
   return items;
 }
-/**    BUTTONS     */
+/**    BUTTONS/HEADER TEXT     */
 const btnGroup = document.querySelector(".btn-group");
+const submitButton = createElementWithClasses("button", "btn", "submit-btn");
+const resetButton = createElementWithClasses("button", "btn", "start-btn");
+const congrats = document.querySelector(".popup");
 
 /**Start Game */
 const startButton = document.querySelector(".start-btn");
@@ -50,38 +53,41 @@ startButton.addEventListener("click", () => {
 
 /**Reset/Submit Score after finishing game*/
 function createSubmit() {
-  const submitButton = createElementWithClasses("button", "btn", "submit-btn");
   submitButton.innerText = "Submit Score";
-
   btnGroup.appendChild(submitButton);
-
-  function finishedSubmit() {
-    submitButton.addEventListener("click", () => {
-      removeCards();
-      startGame();
-    })
-  }
 }
 
-/**Reset before finishing game */
+function finishedSubmit() {
+
+  congrats.innerText = "Congratulations! Click submit to save score and restart";
+  btnGroup.appendChild(congrats);
+  submitButton.classList.add("is-done");
+  submitButton.addEventListener("click", () => {
+    resetGame();
+  })
+}
+
+/**Start Over Button */
 function createReset() {
-  const resetButton = createElementWithClasses("button", "btn", "start-btn");
   resetButton.innerText = "Start Over";
 
-  resetButton.addEventListener("click", () => {
-    removeCards();
-    startGame();
-  });
+  resetButton.addEventListener("click", resetGame);
   btnGroup.appendChild(resetButton);
 
 }
 
-/** Remove Cards */
-function removeCards() {
-  const allCards = document.querySelectorAll(".inner");
-  [...allCards].forEach((card) => {
-    card.remove();
-  })
+/** Reset Game function to remove cards and start new game */
+function resetGame() {
+
+  removeCards();
+  startGame();
+
+  function removeCards() {
+    const allCards = document.querySelectorAll(".inner");
+    [...allCards].forEach((card) => {
+      card.remove();
+    })
+  }
 }
 
 
@@ -189,18 +195,22 @@ function handleCardClick(card) {
       numFlipped = 0;
     }, 1000);
 
+
+    //last match activates reset button. compare colorsMatched to COLORS array//
+
     if (firstFlip.className === secondFlip.className) {
       colorsMatched++;
+      console.log(colorsMatched);
     }
 
     if (colorsMatched === COLORS.length/2) {
-      finishedSubmit();
+      setTimeout(finishedSubmit, 1000);
     }
 
 
   }
 
-  //last match needs to activate reset button//
+
 
 
 
