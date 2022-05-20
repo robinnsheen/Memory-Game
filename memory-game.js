@@ -1,15 +1,19 @@
 "use strict";
 
 /** Memory game: find matching pairs of cards and flip both of them. */
+const FOUND_MATCH_WAIT_MSECS = 1000;
+
+const COLORS = [
+  "red", "blue", "green", "orange", "purple",
+  "red", "blue", "green", "orange", "purple",
+];
+
+const colors = shuffle(COLORS);
+
 
 function startGame() {
-  const FOUND_MATCH_WAIT_MSECS = 1000;
-  const COLORS = [
-  "red", "blue", "green", "orange", "purple",
-  "red", "blue", "green", "orange", "purple",
-  ];
 
-  const colors = shuffle(COLORS);
+
 
   createCards(colors);
 }
@@ -164,6 +168,7 @@ function unFlipCard(card) {
 */
 
 const cardsFlipped = [];
+let colorsMatched = 0;
 let numFlipped = 0;
 let clicks = 0;
 
@@ -183,6 +188,15 @@ function handleCardClick(card) {
       }
       numFlipped = 0;
     }, 1000);
+
+    if (firstFlip.className === secondFlip.className) {
+      colorsMatched++;
+    }
+
+    if (colorsMatched === COLORS.length/2) {
+      finishedSubmit();
+    }
+
 
   }
 

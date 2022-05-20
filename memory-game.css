@@ -35,8 +35,10 @@ body {
 .submit-btn.is-done {background-color: #8772c0;}
 .submit-btn.is-done:hover {background-color: #6f53bb;}
 
-.submit-btn {background-color: #c7c3d3;}
-.submit-btn:hover {background-color: #b2abc2;}
+.submit-btn {
+  background-color: #c7c3d3;
+  cursor: default;
+}
 
 .start-btn {background-color: #dd85b8;}
 .start-btn:hover {background-color: #db66aa;}
